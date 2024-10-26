@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ctrl.AniadirAeropuertoController">
+   <children>
+      <Label text="DATOS DEL AEROPUERTO">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <padding>
+            <Insets bottom="30.0" />
+         </padding>
+      </Label>
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.59998321533203" minWidth="10.0" prefWidth="174.59998321533203" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label text="Nombre" GridPane.halignment="RIGHT">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtNombre" GridPane.columnIndex="1" />
+            <Label text="Pais" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtPais" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Ciudad" GridPane.halignment="RIGHT" GridPane.rowIndex="2">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtCiudad" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label text="Calle" GridPane.halignment="RIGHT" GridPane.rowIndex="3">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtCalle" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Numero" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtNumero" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label text="Año de inauguracion" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtAnioInauguracion" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Capacidad" GridPane.halignment="RIGHT" GridPane.rowIndex="6">
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </Label>
+            <TextField fx:id="txtCapacidad" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <RadioButton fx:id="radPublico" mnemonicParsing="false" onAction="#toggleTipoAeropuerto" selected="true" text="Publico" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+               <toggleGroup>
+                  <ToggleGroup fx:id="grupoTipo" />
+               </toggleGroup>
+               <padding>
+                  <Insets right="5.0" />
+               </padding>
+            </RadioButton>
+            <RadioButton fx:id="radPrivado" mnemonicParsing="false" onAction="#toggleTipoAeropuerto" text="Privado" toggleGroup="$grupoTipo" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+         </children>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+      </GridPane>
+      <StackPane>
+         <children>
+            <GridPane fx:id="gridPrivado" visible="false">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="146.20001220703125" minWidth="10.0" prefWidth="127.80004119873047" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="175.79999542236328" minWidth="10.0" prefWidth="174.19995880126953" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Nº Socios" GridPane.halignment="RIGHT">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="txtNumSocios" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
+            <GridPane fx:id="gridPublico">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="168.40003204345703" minWidth="10.0" prefWidth="166.79999542236328" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Financiacion" GridPane.halignment="RIGHT">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="txtFinanciacion" GridPane.columnIndex="1" />
+                  <Label text="Numero de trabajadores" GridPane.halignment="RIGHT" GridPane.rowIndex="1">
+                     <padding>
+                        <Insets right="5.0" />
+                     </padding>
+                  </Label>
+                  <TextField fx:id="txtNumTrabajadores" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+               </children>
+            </GridPane>
+         </children>
+      </StackPane>
+      <HBox alignment="CENTER" spacing="50.0">
+         <children>
+            <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#guardarAeropuerto" text="Guardar" />
+            <Button fx:id="cancelarAeropuerto" mnemonicParsing="false" onAction="#cancelarOperacion" text="Cancelar" />
+         </children>
+         <padding>
+            <Insets top="50.0" />
+         </padding>
+      </HBox>
+   </children>
+   <padding>
+      <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+   </padding>
+</VBox>

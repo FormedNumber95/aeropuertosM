@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ctrl.ListadoAeropuertosController">
+   <children>
+      <MenuBar>
+        <menus>
+          <Menu mnemonicParsing="false" text="Aeropuertos">
+            <items>
+              <MenuItem fx:id="aniadirAeropuerto" mnemonicParsing="false" onAction="#aniadirAeropuerto" text="Añadir" />
+                  <MenuItem fx:id="editarAeropuerto" mnemonicParsing="false" onAction="#editarAeropuerto" text="Editar" />
+                  <MenuItem fx:id="borrarAeropuerto" mnemonicParsing="false" onAction="#borrarAeropuerto" text="Borrar" />
+                  <MenuItem fx:id="mostarInfoAeropuerto" mnemonicParsing="false" onAction="#mostarDatosAeropuerto" text="Mostrar informacion" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Aviones">
+            <items>
+              <MenuItem fx:id="aniadirAvion" mnemonicParsing="false" onAction="#aniadirAvion" text="Añadir" />
+                  <MenuItem fx:id="toggleAvion" mnemonicParsing="false" onAction="#toggleAvion" text="Activar / desactivar" />
+                  <MenuItem fx:id="borrarAvion" mnemonicParsing="false" onAction="#borrarAvion" text="Borrar" />
+            </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Ayuda" />
+        </menus>
+      </MenuBar>
+      <Label text="LISTADO DE AEROPUERTOS">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <GridPane>
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="10.0">
+               <children>
+                  <RadioButton fx:id="radPublic" mnemonicParsing="false" onAction="#toggleTipoAeropuerto" selected="true" text="Públicos">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="visibilidad" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton fx:id="radPrivate" mnemonicParsing="false" onAction="#toggleTipoAeropuerto" text="Privados" toggleGroup="$visibilidad" />
+               </children>
+               <GridPane.margin>
+                  <Insets left="10.0" />
+               </GridPane.margin>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.halignment="RIGHT">
+               <children>
+                  <Label text="Nombre: " />
+                  <TextField fx:id="txtFiltro" />
+               </children>
+               <GridPane.margin>
+                  <Insets right="10.0" />
+               </GridPane.margin>
+            </HBox>
+         </children>
+      </GridPane>
+      <StackPane>
+         <children>
+            <TableView fx:id="idTablaPrivado" visible="false">
+              <columns>
+                  <TableColumn fx:id="tblIdPrivado" prefWidth="39.20001220703125" resizable="false" text="ID" />
+                  <TableColumn fx:id="tblNombrePrivado" prefWidth="92.79998779296875" resizable="false" text="Nombre" />
+                  <TableColumn fx:id="tblPaisPrivado" resizable="false" text="Pais" />
+                  <TableColumn fx:id="tblCiudadPrivado" resizable="false" text="Ciudad" />
+                  <TableColumn fx:id="tblCallePrivado" prefWidth="120.79998779296875" resizable="false" text="Calle" />
+                  <TableColumn fx:id="tblNumeroPrivado" prefWidth="39.20001220703125" resizable="false" text="Número" />
+                  <TableColumn fx:id="tblAnioPrivado" resizable="false" text="Año" />
+                  <TableColumn fx:id="tblCapacidadPrivado" prefWidth="99.19989013671875" resizable="false" text="Capacidad" />
+                  <TableColumn fx:id="tblNumSocios" prefWidth="160.0" resizable="false" text="Nº Socios" />
+              </columns>
+            </TableView>
+            <TableView fx:id="idTablaPublico">
+              <columns>
+                <TableColumn fx:id="tblIdPublico" prefWidth="39.20001220703125" resizable="false" text="ID" />
+                <TableColumn fx:id="tblNombrePublico" prefWidth="92.79998779296875" resizable="false" text="Nombre" />
+                  <TableColumn fx:id="tblPaisPublico" resizable="false" text="Pais" />
+                  <TableColumn fx:id="tblCiudadPublico" resizable="false" text="Ciudad" />
+                  <TableColumn fx:id="tblCallePublico" prefWidth="120.79998779296875" resizable="false" text="Calle" />
+                  <TableColumn fx:id="tblNumeroPublico" prefWidth="39.20001220703125" resizable="false" text="Número" />
+                  <TableColumn fx:id="tblAnioPublico" resizable="false" text="Año" />
+                  <TableColumn fx:id="tblCapacidadPublico" prefWidth="99.19989013671875" resizable="false" text="Capacidad" />
+                  <TableColumn fx:id="tblFinanciacion" minWidth="0.0" text="Financiacion" />
+                  <TableColumn fx:id="tblNumeroTrabajadores" text="Numero Trabajadores" />
+              </columns>
+            </TableView>
+         </children>
+      </StackPane>
+   </children>
+</VBox>
