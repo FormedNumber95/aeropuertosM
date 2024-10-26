@@ -21,24 +21,24 @@
 <VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="10.0" stylesheets="@../styles/estilo.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ctrl.ListadoAeropuertosController">
    <children>
       <MenuBar>
-        <menus>
-          <Menu mnemonicParsing="false" text="Aeropuertos">
-            <items>
-              <MenuItem fx:id="aniadirAeropuerto" mnemonicParsing="false" onAction="#aniadirAeropuerto" text="Añadir" />
-                  <MenuItem fx:id="editarAeropuerto" mnemonicParsing="false" onAction="#editarAeropuerto" text="Editar" />
-                  <MenuItem fx:id="borrarAeropuerto" mnemonicParsing="false" onAction="#borrarAeropuerto" text="Borrar" />
-                  <MenuItem fx:id="mostarInfoAeropuerto" mnemonicParsing="false" onAction="#mostarDatosAeropuerto" text="Mostrar informacion" />
-            </items>
-          </Menu>
-          <Menu mnemonicParsing="false" text="Aviones">
-            <items>
-              <MenuItem fx:id="aniadirAvion" mnemonicParsing="false" onAction="#aniadirAvion" text="Añadir" />
-                  <MenuItem fx:id="toggleAvion" mnemonicParsing="false" onAction="#toggleAvion" text="Activar / desactivar" />
-                  <MenuItem fx:id="borrarAvion" mnemonicParsing="false" onAction="#borrarAvion" text="Borrar" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="Ayuda" />
-        </menus>
+<menus>
+    <Menu mnemonicParsing="true" text="Ae_ropuertos">
+        <items>
+            <MenuItem fx:id="aniadirAeropuerto" mnemonicParsing="true" onAction="#aniadirAeropuerto" text="Aña_dir" />
+            <MenuItem fx:id="editarAeropuerto" mnemonicParsing="true" onAction="#editarAeropuerto" text="_Editar" />
+            <MenuItem fx:id="borrarAeropuerto" mnemonicParsing="true" onAction="#borrarAeropuerto" text="_Borrar" />
+            <MenuItem fx:id="mostarInfoAeropuerto" mnemonicParsing="true" onAction="#mostarDatosAeropuerto" text="_Mostrar informacion" />
+        </items>
+    </Menu>
+    <Menu mnemonicParsing="true" text="A_viones">
+        <items>
+            <MenuItem fx:id="aniadirAvion" mnemonicParsing="true" onAction="#aniadirAvion" text="Aña_dir" />
+            <MenuItem fx:id="toggleAvion" mnemonicParsing="true" onAction="#toggleAvion" text="A_ctivar / desactivar" />
+            <MenuItem fx:id="borrarAvion" mnemonicParsing="true" onAction="#borrarAvion" text="_Borrar" />
+        </items>
+    </Menu>
+    <Menu mnemonicParsing="true" text="_Ayuda" />
+</menus>
       </MenuBar>
       <Label text="LISTADO DE AEROPUERTOS">
          <font>
