@@ -1,5 +1,7 @@
 package ctrl;
 
+import java.io.File;
+
 import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
 import org.kordamp.ikonli.javafx.FontIcon;
 
@@ -9,14 +11,17 @@ import dao.DaoAeropuertoPublico;
 import dao.DaoDireccion;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
+import javafx.stage.FileChooser;
 import model.ModeloAeropuertoPrivado;
 import model.ModeloAeropuertoPublico;
 import model.ModeloDireccion;
@@ -33,6 +38,9 @@ public class AniadirAeropuertoController {
     /** EL cancelar aeropuerto. */
     @FXML
     private Button cancelarAeropuerto;
+    
+    @FXML
+    private Button btnSeleccionarImagen;
 
     /** EL grid privado. */
     @FXML
@@ -89,6 +97,9 @@ public class AniadirAeropuertoController {
     /** EL txt pais. */
     @FXML
     private TextField txtPais;
+    
+    @FXML
+    private ImageView imgSeleccionada;
 
     /** EL txt anio inauguracion. */
     @FXML
@@ -429,6 +440,17 @@ public class AniadirAeropuertoController {
     		gridPrivado.setVisible(false);
     		gridPublico.setVisible(true);
     	}
+    }
+    
+    @FXML
+    void elegirImagen(ActionEvent event) {
+        FileChooser fileChooser = new FileChooser();
+        
+        FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("Archivos JPG (*.jpg)", "*.jpg");
+        FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("Archivos PNG (*.png)", "*.png");
+        fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG); 
+        File file = fileChooser.showOpenDialog(((Node)event.getSource()).getScene().getWindow());
+        
     }
     
     /**

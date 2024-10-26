@@ -31,7 +31,7 @@ public class DaoAeropuertoPrivado {
 			PreparedStatement pstmt = conection.prepareStatement(select);
 			ResultSet rs = pstmt.executeQuery();
             while (rs.next()) {
-            	ModeloAeropuertoPrivado modelo=new ModeloAeropuertoPrivado(rs.getString("nombre"),rs.getInt("anio_inauguracion"),rs.getInt("capacidad"), DaoDireccion.crearModeloDireccionPorID(rs.getInt("id_direccion")), rs.getBlob("imagen"),rs.getInt("numero_socios"));
+            	ModeloAeropuertoPrivado modelo=new ModeloAeropuertoPrivado(rs.getString("nombre"),rs.getInt("anio_inauguracion"),rs.getInt("capacidad"), DaoDireccion.crearModeloDireccionPorID(rs.getInt("id_direccion")), rs.getBinaryStream("imagen"),rs.getInt("numero_socios"));
             	modelo.setId(rs.getInt("id"));
             	lst.add(modelo);
             }

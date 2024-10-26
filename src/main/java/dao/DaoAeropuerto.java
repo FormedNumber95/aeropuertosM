@@ -1,5 +1,6 @@
 package dao;
 
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -29,10 +30,10 @@ public class DaoAeropuerto {
 	 * @param imagen the imagen
 	 * @return the integer
 	 */
-	public static Integer conseguirID(String nombre,int anioInauguracion,int capacidad,int idDireccion,Blob imagen) {
+	public static Integer conseguirID(String nombre,int anioInauguracion,int capacidad,int idDireccion,InputStream imagen) {
 		conection=ConexionBBDD.getConnection();
 		String select="SELECT id FROM aeropuertos WHERE nombre=? AND anio_inauguracion=? AND capacidad=? AND id_direccion=?";
-				//select +=" AND imagen=?";
+				select +=" AND imagen=?";
 		try {
 			PreparedStatement pstmt;
 			pstmt=conection.prepareStatement(select);
@@ -40,7 +41,7 @@ public class DaoAeropuerto {
 			pstmt.setInt(2,anioInauguracion);
 			pstmt.setInt(3,capacidad);
 			pstmt.setInt(4,idDireccion);
-			//pstmt.setBlob(5,imagen);
+			pstmt.setBlob(5,imagen);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return rs.getInt("id");
@@ -60,7 +61,7 @@ public class DaoAeropuerto {
 	 * @param idDireccion the id direccion
 	 * @param imagen the imagen
 	 */
-	public static void aniadir(String nombre,int anioInauguracion,int capacidad,int idDireccion,Blob imagen) {
+	public static void aniadir(String nombre,int anioInauguracion,int capacidad,int idDireccion,InputStream imagen) {
 		conection=ConexionBBDD.getConnection();
 		String insert="INSERT INTO aeropuertos (nombre,anio_inauguracion,capacidad,id_direccion,imagen) VALUES (?,?,?,?,?)";
 		try {
@@ -70,7 +71,7 @@ public class DaoAeropuerto {
 			pstmt.setInt(2,anioInauguracion);
 			pstmt.setInt(3,capacidad);
 			pstmt.setInt(4,idDireccion);
-			pstmt.setBlob(5,imagen);
+			pstmt.setBinaryStream(5,imagen);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -87,7 +88,7 @@ public class DaoAeropuerto {
 	 * @param idDireccion the id direccion
 	 * @param imagen the imagen
 	 */
-	public static void modificarPorId(int id,String nombre,int anioInauguracion,int capacidad,int idDireccion,Blob imagen) {
+	public static void modificarPorId(int id,String nombre,int anioInauguracion,int capacidad,int idDireccion,InputStream imagen) {
 		conection=ConexionBBDD.getConnection();
 		String update="UPDATE aeropuertos SET nombre=?,anio_inauguracion=?,capacidad=?,id_direccion=?,imagen=? WHERE id=?";
 		try {
@@ -96,7 +97,7 @@ public class DaoAeropuerto {
 			pstmt.setInt(2,anioInauguracion);
 			pstmt.setInt(3,capacidad);
 			pstmt.setInt(4,idDireccion);
-			pstmt.setBlob(5,imagen);
+			pstmt.setBinaryStream(5,imagen);
 			pstmt.setInt(6,id);
 			pstmt.executeUpdate();
 		} catch (SQLException e) {

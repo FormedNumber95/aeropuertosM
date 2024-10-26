@@ -6,6 +6,7 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -37,6 +38,8 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -82,7 +85,7 @@
                </padding>
             </Label>
             <TextField fx:id="txtCapacidad" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <RadioButton fx:id="radPublico" mnemonicParsing="false" onAction="#toggleTipoAeropuerto" selected="true" text="Publico" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+            <RadioButton fx:id="radPublico" mnemonicParsing="false" onAction="#toggleTipoAeropuerto" selected="true" text="Publico" GridPane.halignment="RIGHT" GridPane.rowIndex="9">
                <toggleGroup>
                   <ToggleGroup fx:id="grupoTipo" />
                </toggleGroup>
@@ -90,7 +93,14 @@
                   <Insets right="5.0" />
                </padding>
             </RadioButton>
-            <RadioButton fx:id="radPrivado" mnemonicParsing="false" onAction="#toggleTipoAeropuerto" text="Privado" toggleGroup="$grupoTipo" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <RadioButton fx:id="radPrivado" mnemonicParsing="false" onAction="#toggleTipoAeropuerto" text="Privado" toggleGroup="$grupoTipo" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label text="Imagen" GridPane.halignment="RIGHT" GridPane.rowIndex="7">
+               <GridPane.margin>
+                  <Insets right="5.0" />
+               </GridPane.margin>
+            </Label>
+            <Button fx:id="btnSeleccionarImagen" mnemonicParsing="false" onAction="#elegirImagen" prefHeight="38.0" prefWidth="174.0" text="Seleccionar imagen" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <ImageView fx:id="imgSeleccionada" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>
          <VBox.margin>
             <Insets />

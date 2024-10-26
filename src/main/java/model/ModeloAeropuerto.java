@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Blob;
+import java.io.InputStream;
 import java.util.Objects;
 
 /**
@@ -24,7 +24,7 @@ public class ModeloAeropuerto {
 	ModeloDireccion direccion;
 	
 	/** La imagen. */
-	Blob imagen;
+	InputStream imagen;
 	
 	/**
 	 * Instantiates a new modelo aeropuerto.
@@ -36,7 +36,7 @@ public class ModeloAeropuerto {
 	 * @param imagen the imagen
 	 */
 	public ModeloAeropuerto(String nombre, int anioInauguracion, int capacidad, ModeloDireccion direccion,
-			Blob imagen) {
+			InputStream imagen) {
 		super();
 		this.nombre = nombre;
 		this.anioInauguracion = anioInauguracion;
@@ -86,7 +86,7 @@ public class ModeloAeropuerto {
 	 *
 	 * @return the imagen
 	 */
-	public Blob getImagen() {
+	public InputStream getImagen() {
 		return imagen;
 	}
 	

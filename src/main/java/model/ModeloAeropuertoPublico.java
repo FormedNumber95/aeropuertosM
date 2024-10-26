@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Blob;
+import java.io.InputStream;
 import java.util.Objects;
 
 /**
@@ -26,7 +26,7 @@ public class ModeloAeropuertoPublico extends ModeloAeropuerto {
 	 * @param numTrabajadores the num trabajadores
 	 */
 	public ModeloAeropuertoPublico(String nombre, int anioInauguracion, int capacidad,
-			ModeloDireccion direccion, Blob imagen, float financiacion, int numTrabajadores) {
+			ModeloDireccion direccion, InputStream imagen, float financiacion, int numTrabajadores) {
 		super(nombre, anioInauguracion, capacidad, direccion, imagen);
 		this.financiacion = financiacion;
 		this.numTrabajadores = numTrabajadores;
