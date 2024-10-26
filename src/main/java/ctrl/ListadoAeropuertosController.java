@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
@@ -27,6 +28,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import model.ModeloAeropuertoPrivado;
 import model.ModeloAeropuertoPublico;
@@ -188,6 +191,8 @@ public class ListadoAeropuertosController {
     
     /** EL stage. */
     private static Stage s;
+    
+    private  ContextMenu contextMenu;
 
     /**
      * Toggle tipo aeropuerto.
@@ -490,6 +495,17 @@ public class ListadoAeropuertosController {
         s.showAndWait();
     }
     
+    @FXML
+    void mostrarMenuContextual(MouseEvent event) {
+    	if(event.getButton()==MouseButton.SECONDARY) {
+    		contextMenu.show(MainApp.getStage(), event.getScreenX(), event.getScreenY());
+    	}else {
+    		if(event.getButton()==MouseButton.PRIMARY&&event.getClickCount()==2) {
+    			mostarDatosAeropuerto(null);
+    		}
+    	}
+    }
+    
     /**
      * Initializa todas las tablas y crea la conexion con la base de datos.
      */
@@ -500,6 +516,12 @@ public class ListadoAeropuertosController {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+    	contextMenu = new ContextMenu();
+    	MenuItem item1 = new MenuItem("Modificar");
+        MenuItem item2 = new MenuItem("Eliminar");
+        item1.setOnAction(event -> editarAeropuerto(event));
+        item2.setOnAction(event -> borrarAeropuerto(event));
+        contextMenu.getItems().addAll(item1,item2);
     	txtFiltro.setOnKeyReleased(event -> accionFiltrar());
 		//Tabla publico
     	tblAnioPublico.setCellValueFactory(new PropertyValueFactory<>("anioInauguracion"));

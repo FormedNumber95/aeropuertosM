@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ContextMenu?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
@@ -92,8 +93,16 @@
                   <TableColumn fx:id="tblCapacidadPrivado" prefWidth="99.19989013671875" resizable="false" text="Capacidad" />
                   <TableColumn fx:id="tblNumSocios" prefWidth="160.0" resizable="false" text="Nº Socios" />
               </columns>
+               <contextMenu>
+                  <ContextMenu>
+                     <items>
+                        <MenuItem fx:id="editarAeropuerto" mnemonicParsing="false" text="Modificar" />
+                        <MenuItem fx:id="borrarAeropuerto" mnemonicParsing="false" text="Eliminar" />
+                     </items>
+                  </ContextMenu>
+               </contextMenu>
             </TableView>
-            <TableView fx:id="idTablaPublico">
+            <TableView fx:id="idTablaPublico" onMouseClicked="#mostrarMenuContextual">
               <columns>
                 <TableColumn fx:id="tblIdPublico" prefWidth="39.20001220703125" resizable="false" text="ID" />
                 <TableColumn fx:id="tblNombrePublico" prefWidth="92.79998779296875" resizable="false" text="Nombre" />

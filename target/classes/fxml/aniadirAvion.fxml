@@ -72,8 +72,8 @@
       </GridPane>
       <HBox alignment="CENTER" spacing="50.0">
          <children>
-            <Button fx:id="btnGuardar" mnemonicParsing="false" onAction="#guardarAvion" text="Guardar" />
-            <Button fx:id="btnCancelar" mnemonicParsing="false" onAction="#calncelarAvion" text="Cancelar" />
+            <Button fx:id="btnGuardar" defaultButton="true" mnemonicParsing="false" onAction="#guardarAvion" text="Guardar" />
+            <Button fx:id="btnCancelar" cancelButton="true" mnemonicParsing="false" onAction="#calncelarAvion" text="Cancelar" />
          </children>
          <VBox.margin>
             <Insets />

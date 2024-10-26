@@ -1,7 +1,4 @@
 package ctrl;
-import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
-import org.kordamp.ikonli.javafx.FontIcon;
-
 import dao.DaoAeropuerto;
 import dao.DaoAvion;
 import javafx.event.ActionEvent;
@@ -138,12 +135,6 @@ public class AniadirAvionController {
     @FXML
     private void initialize() {
     	this.cmbAeropuertos.setItems(DaoAeropuerto.listaTodas());
-    	FontIcon iconoGuardar = new FontIcon(FontAwesomeRegular.PLUS_SQUARE);
-    	iconoGuardar.setIconColor(javafx.scene.paint.Color.WHITE);
-        btnGuardar.setGraphic(iconoGuardar);
-        FontIcon iconoCancelar=new FontIcon(FontAwesomeRegular.WINDOW_CLOSE);
-        iconoCancelar.setIconColor(javafx.scene.paint.Color.WHITE);
-        btnCancelar.setGraphic(iconoCancelar);
     }
 
 }

@@ -31,7 +31,7 @@
       </GridPane>
       <HBox alignment="CENTER">
          <children>
-            <Button fx:id="btnLogin" mnemonicParsing="false" onAction="#validarUsuario" text="Login" />
+            <Button fx:id="btnLogin" defaultButton="true" mnemonicParsing="false" onAction="#validarUsuario" text="Login" />
          </children>
          <VBox.margin>
             <Insets />
