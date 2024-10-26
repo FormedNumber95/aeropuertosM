@@ -1,5 +1,8 @@
 package ctrl;
 
+import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
+import org.kordamp.ikonli.javafx.FontIcon;
+
 import dao.DaoAeropuerto;
 import dao.DaoAeropuertoPrivado;
 import dao.DaoAeropuertoPublico;
@@ -439,6 +442,12 @@ public class AniadirAeropuertoController {
     	gridPublico.setVisible(radPublico.isSelected());
     	radPrivado.setDisable(!ListadoAeropuertosController.isEsAniadir());
     	radPublico.setDisable(!ListadoAeropuertosController.isEsAniadir());
+    	FontIcon iconoGuardar = new FontIcon(FontAwesomeRegular.PLUS_SQUARE);
+    	iconoGuardar.setIconColor(javafx.scene.paint.Color.WHITE);
+        btnGuardar.setGraphic(iconoGuardar);
+        FontIcon iconoCancelar=new FontIcon(FontAwesomeRegular.WINDOW_CLOSE);
+        iconoCancelar.setIconColor(javafx.scene.paint.Color.WHITE);
+        cancelarAeropuerto.setGraphic(iconoCancelar);
     }
     
     /**
