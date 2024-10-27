@@ -39,7 +39,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="100.0" minHeight="100.0" prefHeight="100.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
@@ -100,7 +100,7 @@
                </GridPane.margin>
             </Label>
             <Button fx:id="btnSeleccionarImagen" mnemonicParsing="false" onAction="#elegirImagen" prefHeight="38.0" prefWidth="174.0" text="Seleccionar imagen" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <ImageView fx:id="imgSeleccionada" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <ImageView fx:id="imgSeleccionada" fitHeight="100.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="1" GridPane.rowIndex="8" />
          </children>
          <VBox.margin>
             <Insets />

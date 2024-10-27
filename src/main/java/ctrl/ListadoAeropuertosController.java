@@ -28,6 +28,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
@@ -375,6 +377,9 @@ public class ListadoAeropuertosController {
     				controller.setTxtNumeroText(modelo.getDireccion().getNumero()+"");
     				controller.setTxtNumTrabajadoresText(modelo.getNumTrabajadores()+"");
     				controller.setTxtPaisText(modelo.getDireccion().getPais());
+    				if(modelo.getImagen()!=null) {
+    					controller.setImgSeleccionada(new ImageView(new Image(modelo.getImagen())));
+    				}
     			}else {
     				ModeloAeropuertoPrivado modelo=idTablaPrivado.getSelectionModel().getSelectedItem();
     				controller.setTxtAnioInauguracionText(modelo.getAnioInauguracion()+"") ;
@@ -385,6 +390,9 @@ public class ListadoAeropuertosController {
     				controller.setTxtNumeroText(modelo.getDireccion().getNumero()+"");
     				controller.setTxtNumSociosText(modelo.getNumSocios()+"");
     				controller.setTxtPaisText(modelo.getDireccion().getPais());
+    				if(modelo.getImagen()!=null) {
+    					controller.setImgSeleccionada(new ImageView(new Image(modelo.getImagen())));
+    				}
     			}
     		} catch (IOException e) {
     			e.printStackTrace();
@@ -427,7 +435,7 @@ public class ListadoAeropuertosController {
 	    				modelo.getNombre(),modelo.getAnioInauguracion(),modelo.getCapacidad(),
 	    				DaoDireccion.conseguirID(modelo.getDireccion().getPais(),modelo.
 	    						getDireccion().getCiudad(),modelo.getDireccion().getCalle(),
-	    						modelo.getDireccion().getNumero()), modelo.getImagen()))) {
+	    						modelo.getDireccion().getNumero())))) {
 	    			str+="\tModelo: "+avion.getModelo()+"\n";
 	    			str+="\tNúmero de asientos: "+avion.getNumAsientos()+"\n";
 	    			str+="\tVelocidad máxima: "+avion.getVelMaxima()+"\n";
@@ -452,7 +460,7 @@ public class ListadoAeropuertosController {
 	    				modelo.getNombre(),modelo.getAnioInauguracion(),modelo.getCapacidad(),
 	    				DaoDireccion.conseguirID(modelo.getDireccion().getPais(),modelo.
 	    						getDireccion().getCiudad(),modelo.getDireccion().getCalle(),
-	    						modelo.getDireccion().getNumero()), modelo.getImagen()))) {
+	    						modelo.getDireccion().getNumero())))) {
 	    			str+="\tModelo: "+avion.getModelo()+"\n";
 	    			str+="\tNúmero de asientos: "+avion.getNumAsientos()+"\n";
 	    			str+="\tVelocidad máxima: "+avion.getVelMaxima()+"\n";

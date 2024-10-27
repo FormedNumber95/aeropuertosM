@@ -1,6 +1,13 @@
 package ctrl;
 
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+
+import javax.imageio.ImageIO;
 
 import org.kordamp.ikonli.fontawesome5.FontAwesomeRegular;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -18,7 +25,10 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.PixelReader;
+import javafx.scene.image.WritablePixelFormat;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
@@ -141,6 +151,7 @@ public class AniadirAeropuertoController {
     	int numTrabajadores=-1;
     	int numSocios=-1;
     	boolean existe=false;
+    	InputStream imagen=null;
     	//Validacion
     	error = validarStrings(error);
     	if(txtNumero.getText().isEmpty()) {
@@ -238,19 +249,57 @@ public class AniadirAeropuertoController {
 	    	}
     	}
     	//Una vez validado
+    	imagen=getImageInputStream(imgSeleccionada);
     	Alert al=new Alert(AlertType.INFORMATION);
     	al.setHeaderText(null);
     	if(ListadoAeropuertosController.isEsAniadir()) {
 	    	aniadirAeropuerto(error, nombre, pais, ciudad, calle, numero, anioInauguracion, capacidad, esPublico,
-					financiacion, numTrabajadores, numSocios, existe, al);
+					financiacion, numTrabajadores, numSocios, existe, al,imagen);
     	}else {
     		modificarAeropuerto(error, nombre, pais, ciudad, calle, numero, anioInauguracion, capacidad, esPublico,
-					financiacion, numTrabajadores, numSocios, existe, al);
+					financiacion, numTrabajadores, numSocios, existe, al,imagen);
     	}
     	al.showAndWait();
     	idTablaPrivado.getSelectionModel().clearSelection();
     	idTablaPublico.getSelectionModel().clearSelection();
     	ListadoAeropuertosController.getS().close();
+    }
+    
+    public static InputStream getImageInputStream(ImageView imageView) {
+        Image image = imageView.getImage();
+        if (image == null) {
+            System.out.println("No hay imagen en el ImageView.");
+            return null;
+        }
+
+        // Obtener las dimensiones de la imagen
+        int width = (int) image.getWidth();
+        int height = (int) image.getHeight();
+
+        // Crear un BufferedImage con el mismo tamaño que la imagen de JavaFX
+        BufferedImage bufferedImage = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+
+        // Obtener el lector de píxeles de la imagen de JavaFX
+        PixelReader pixelReader = image.getPixelReader();
+        if (pixelReader != null) {
+            // Leer píxeles de la imagen y escribirlos en BufferedImage
+            int[] pixels = new int[width * height];
+            pixelReader.getPixels(0, 0, width, height, WritablePixelFormat.getIntArgbInstance(), pixels, 0, width);
+            bufferedImage.setRGB(0, 0, width, height, pixels, 0, width);
+        }
+
+        try {
+            // Escribir el BufferedImage en un ByteArrayOutputStream
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            ImageIO.write(bufferedImage, "png", outputStream);
+            outputStream.flush();
+
+            // Convertir el ByteArrayOutputStream a InputStream
+            return new ByteArrayInputStream(outputStream.toByteArray());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
 	/**
@@ -268,28 +317,68 @@ public class AniadirAeropuertoController {
 	 * @param financiacion the financiacion
 	 * @param numTrabajadores the num trabajadores
 	 * @param numSocios the num socios
-	 * @param existe the existe
-	 * @param al the al
-	 */
-	void modificarAeropuerto(String error, String nombre, String pais, String ciudad, String calle, int numero,
+	 * @param existe the existevoid modificarAeropuerto(String error, String nombre, String pais, String ciudad, String calle, int numero,
 			int anioInauguracion, int capacidad, boolean esPublico, float financiacion, int numTrabajadores,
-			int numSocios, boolean existe, Alert al) {
+			int numSocios, boolean existe, Alert al,InputStream imagen) {
 		existe = validarExistencia(nombre, pais, ciudad, calle, numero, anioInauguracion, capacidad, esPublico,
-				financiacion, numTrabajadores, numSocios, existe);
+				financiacion, numTrabajadores, numSocios, existe, imagen);
 		if(!existe&&error.equals("")) {
 			Integer idDireccion=DaoDireccion.conseguirID(pais, ciudad, calle, numero);
 			if(idDireccion==null) {
 				DaoDireccion.aniadir(pais, ciudad, calle, numero);
 				idDireccion=DaoDireccion.conseguirID(pais, ciudad, calle, numero);
 			}
-			Integer idAeropuerto=DaoAeropuerto.conseguirID(nombre, anioInauguracion, capacidad, idDireccion, null);
+			Integer idAeropuerto=DaoAeropuerto.conseguirID(nombre, anioInauguracion, capacidad, idDireccion);
 			if(idAeropuerto==null) {
 				if(esPublico) {
-					DaoAeropuerto.modificarPorId(idTablaPublico.getSelectionModel().getSelectedItem().getId(), nombre, anioInauguracion, capacidad, idDireccion, null);
+					DaoAeropuerto.modificarPorId(idTablaPublico.getSelectionModel().getSelectedItem().getId(), nombre, anioInauguracion, capacidad, idDireccion, imagen);
 				}else {
-					DaoAeropuerto.modificarPorId(idTablaPrivado.getSelectionModel().getSelectedItem().getId(), nombre, anioInauguracion, capacidad, idDireccion, null);
+					DaoAeropuerto.modificarPorId(idTablaPrivado.getSelectionModel().getSelectedItem().getId(), nombre, anioInauguracion, capacidad, idDireccion, imagen);
 				}
-				idAeropuerto=DaoAeropuerto.conseguirID(nombre, anioInauguracion, capacidad,idDireccion, null);
+				idAeropuerto=DaoAeropuerto.conseguirID(nombre, anioInauguracion, capacidad,idDireccion);
+			}
+			System.out.println(imagen);
+			if(esPublico) {
+				DaoAeropuertoPublico.modificarPorID(idAeropuerto, financiacion, numTrabajadores);
+				ListadoAeropuertosController.setListaTodasPublico(DaoAeropuertoPublico.cargarListaAeropuertosPublicos());
+				idTablaPublico.refresh();
+			}else {
+				DaoAeropuertoPrivado.modificarPorID(idAeropuerto, numSocios);
+				ListadoAeropuertosController.setListaTodasPrivado(DaoAeropuertoPrivado.cargarListaAeropuertosPrivados());
+				idTablaPrivado.refresh();
+			}
+			al.setContentText("Aeropuerto modificado correctamente");
+		}else {
+			if(error.equals("")) {
+				al.setAlertType(AlertType.WARNING);
+				error="La persona ya estaba en la lista";
+			}else {
+				al.setAlertType(AlertType.ERROR);
+			}
+			al.setContentText(error);
+		}
+	}
+	 * @param al the al
+	 */
+	void modificarAeropuerto(String error, String nombre, String pais, String ciudad, String calle, int numero,
+			int anioInauguracion, int capacidad, boolean esPublico, float financiacion, int numTrabajadores,
+			int numSocios, boolean existe, Alert al,InputStream imagen) {
+		existe = validarExistencia(nombre, pais, ciudad, calle, numero, anioInauguracion, capacidad, esPublico,
+				financiacion, numTrabajadores, numSocios, existe, imagen);
+		if(!existe&&error.equals("")) {
+			Integer idDireccion=DaoDireccion.conseguirID(pais, ciudad, calle, numero);
+			if(idDireccion==null) {
+				DaoDireccion.aniadir(pais, ciudad, calle, numero);
+				idDireccion=DaoDireccion.conseguirID(pais, ciudad, calle, numero);
+			}
+			Integer idAeropuerto=DaoAeropuerto.conseguirID(nombre, anioInauguracion, capacidad, idDireccion);
+			if(idAeropuerto==null) {
+				if(esPublico) {
+					DaoAeropuerto.modificarPorId(idTablaPublico.getSelectionModel().getSelectedItem().getId(), nombre, anioInauguracion, capacidad, idDireccion, imagen);
+				}else {
+					DaoAeropuerto.modificarPorId(idTablaPrivado.getSelectionModel().getSelectedItem().getId(), nombre, anioInauguracion, capacidad, idDireccion, imagen);
+				}
+				idAeropuerto=DaoAeropuerto.conseguirID(nombre, anioInauguracion, capacidad,idDireccion);
 			}
 			if(esPublico) {
 				DaoAeropuertoPublico.modificarPorID(idAeropuerto, financiacion, numTrabajadores);
@@ -332,19 +421,19 @@ public class AniadirAeropuertoController {
 	 */
 	void aniadirAeropuerto(String error, String nombre, String pais, String ciudad, String calle, int numero,
 			int anioInauguracion, int capacidad, boolean esPublico, float financiacion, int numTrabajadores,
-			int numSocios, boolean existe, Alert al) {
+			int numSocios, boolean existe, Alert al,InputStream imagen) {
 		existe = validarExistencia(nombre, pais, ciudad, calle, numero, anioInauguracion, capacidad, esPublico,
-				financiacion, numTrabajadores, numSocios, existe);
+				financiacion, numTrabajadores, numSocios, existe, imagen);
 		if(error.equals("")&&!existe) {
 			Integer idDireccion=DaoDireccion.conseguirID(pais, ciudad, calle, numero);
 			if(idDireccion==null) {
 				DaoDireccion.aniadir(pais, ciudad, calle, numero);
 				idDireccion=DaoDireccion.conseguirID(pais, ciudad, calle, numero);
 			}
-			Integer idAeropuerto=DaoAeropuerto.conseguirID(nombre, anioInauguracion, capacidad, idDireccion, null);
+			Integer idAeropuerto=DaoAeropuerto.conseguirID(nombre, anioInauguracion, capacidad, idDireccion);
 			if(idAeropuerto==null) {
-				DaoAeropuerto.aniadir(nombre, anioInauguracion, capacidad, idDireccion, null);
-				idAeropuerto=DaoAeropuerto.conseguirID(nombre, anioInauguracion, capacidad,idDireccion, null);
+				DaoAeropuerto.aniadir(nombre, anioInauguracion, capacidad, idDireccion, imagen);
+				idAeropuerto=DaoAeropuerto.conseguirID(nombre, anioInauguracion, capacidad,idDireccion);
 			}
 			if(esPublico) {
 				DaoAeropuertoPublico.aniadir(idAeropuerto, financiacion, numTrabajadores);
@@ -385,16 +474,16 @@ public class AniadirAeropuertoController {
 	 * @return true, if successful
 	 */
 	boolean validarExistencia(String nombre, String pais, String ciudad, String calle, int numero, int anioInauguracion,
-			int capacidad, boolean esPublico, float financiacion, int numTrabajadores, int numSocios, boolean existe) {
+			int capacidad, boolean esPublico, float financiacion, int numTrabajadores, int numSocios, boolean existe, InputStream imagen) {
 		if(esPublico) {
-			ModeloAeropuertoPublico aeropuerto=new ModeloAeropuertoPublico(nombre, anioInauguracion, capacidad, new ModeloDireccion(pais, ciudad, calle, numero), null, financiacion, numTrabajadores);
+			ModeloAeropuertoPublico aeropuerto=new ModeloAeropuertoPublico(nombre, anioInauguracion, capacidad, new ModeloDireccion(pais, ciudad, calle, numero), imagen, financiacion, numTrabajadores);
 			for(ModeloAeropuertoPublico airport:ListadoAeropuertosController.getListaTodasPublico()) {
 				if(airport.equals(aeropuerto)) {
 					existe=true;
 				}
 			}
 		}else {
-			ModeloAeropuertoPrivado aeropuerto=new ModeloAeropuertoPrivado(nombre, anioInauguracion, capacidad, new ModeloDireccion(pais, ciudad, calle, numero), null, numSocios);
+			ModeloAeropuertoPrivado aeropuerto=new ModeloAeropuertoPrivado(nombre, anioInauguracion, capacidad, new ModeloDireccion(pais, ciudad, calle, numero), imagen, numSocios);
 			for(ModeloAeropuertoPrivado airport:ListadoAeropuertosController.getListaTodasPrivado()) {
 				if(airport.equals(aeropuerto)) {
 					existe=true;
@@ -445,12 +534,15 @@ public class AniadirAeropuertoController {
     @FXML
     void elegirImagen(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
-        
         FileChooser.ExtensionFilter extFilterJPG = new FileChooser.ExtensionFilter("Archivos JPG (*.jpg)", "*.jpg");
         FileChooser.ExtensionFilter extFilterPNG = new FileChooser.ExtensionFilter("Archivos PNG (*.png)", "*.png");
         fileChooser.getExtensionFilters().addAll(extFilterJPG, extFilterPNG); 
         File file = fileChooser.showOpenDialog(((Node)event.getSource()).getScene().getWindow());
-        
+        if(file!=null) {
+	        imgSeleccionada.setImage(new Image(file.toURI().toString()));
+	        imgSeleccionada.setFitWidth(100);
+	        imgSeleccionada.setFitHeight(100);
+        }
     }
     
     /**
@@ -578,6 +670,10 @@ public class AniadirAeropuertoController {
 	 */
 	public void setTxtAnioInauguracionText(String txtAnioInauguracion) {
 		this.txtAnioInauguracion.setText(txtAnioInauguracion);
+	}
+	
+	public void setImgSeleccionada(ImageView imgSeleccionada) {
+		this.imgSeleccionada = imgSeleccionada;
 	}
 
 }

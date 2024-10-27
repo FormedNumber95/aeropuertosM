@@ -3,7 +3,7 @@ module es.aketzagonzalez {
     requires javafx.fxml;
     requires javafx.media;
     requires java.sql;
-	requires javafx.base;
+    requires java.desktop;
 	requires javafx.graphics;
 	requires org.kordamp.ikonli.javafx;
 	requires org.kordamp.ikonli.fontawesome5;

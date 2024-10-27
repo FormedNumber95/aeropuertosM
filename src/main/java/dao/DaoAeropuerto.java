@@ -30,10 +30,10 @@ public class DaoAeropuerto {
 	 * @param imagen the imagen
 	 * @return the integer
 	 */
-	public static Integer conseguirID(String nombre,int anioInauguracion,int capacidad,int idDireccion,InputStream imagen) {
+	public static Integer conseguirID(String nombre,int anioInauguracion,int capacidad,int idDireccion) {
 		conection=ConexionBBDD.getConnection();
 		String select="SELECT id FROM aeropuertos WHERE nombre=? AND anio_inauguracion=? AND capacidad=? AND id_direccion=?";
-				select +=" AND imagen=?";
+				//select +=" AND imagen=?";
 		try {
 			PreparedStatement pstmt;
 			pstmt=conection.prepareStatement(select);
@@ -41,7 +41,6 @@ public class DaoAeropuerto {
 			pstmt.setInt(2,anioInauguracion);
 			pstmt.setInt(3,capacidad);
 			pstmt.setInt(4,idDireccion);
-			pstmt.setBlob(5,imagen);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return rs.getInt("id");
@@ -132,6 +131,22 @@ public class DaoAeropuerto {
 		lst.addAll(DaoAeropuertoPrivado.cargarListaAeropuertosPrivados());
 		lst.addAll(DaoAeropuertoPublico.cargarListaAeropuertosPublicos());
 		return lst;
+	}
+	
+	public static InputStream conseguirImagen(int id) {
+		conection=ConexionBBDD.getConnection();
+		String select="SELECT imagen FROM aeropuertos WHERE id=?";
+		try {
+			PreparedStatement pstmt=conection.prepareStatement(select);
+			pstmt.setInt(1,id);
+			ResultSet rs = pstmt.executeQuery();
+			if (rs.next()) {
+				return rs.getBinaryStream("imagen");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 }
