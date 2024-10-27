@@ -49,6 +49,7 @@ public class AniadirAeropuertoController {
     @FXML
     private Button cancelarAeropuerto;
     
+    /** El btn seleccionar imagen. */
     @FXML
     private Button btnSeleccionarImagen;
 
@@ -108,6 +109,7 @@ public class AniadirAeropuertoController {
     @FXML
     private TextField txtPais;
     
+    /** La img seleccionada. */
     @FXML
     private ImageView imgSeleccionada;
 
@@ -265,6 +267,12 @@ public class AniadirAeropuertoController {
     	ListadoAeropuertosController.getS().close();
     }
     
+    /**
+     * Gets the image input stream.
+     *
+     * @param imageView the image view
+     * @return the image input stream
+     */
     public static InputStream getImageInputStream(ImageView imageView) {
         Image image = imageView.getImage();
         if (image == null) {
@@ -317,48 +325,9 @@ public class AniadirAeropuertoController {
 	 * @param financiacion the financiacion
 	 * @param numTrabajadores the num trabajadores
 	 * @param numSocios the num socios
-	 * @param existe the existevoid modificarAeropuerto(String error, String nombre, String pais, String ciudad, String calle, int numero,
-			int anioInauguracion, int capacidad, boolean esPublico, float financiacion, int numTrabajadores,
-			int numSocios, boolean existe, Alert al,InputStream imagen) {
-		existe = validarExistencia(nombre, pais, ciudad, calle, numero, anioInauguracion, capacidad, esPublico,
-				financiacion, numTrabajadores, numSocios, existe, imagen);
-		if(!existe&&error.equals("")) {
-			Integer idDireccion=DaoDireccion.conseguirID(pais, ciudad, calle, numero);
-			if(idDireccion==null) {
-				DaoDireccion.aniadir(pais, ciudad, calle, numero);
-				idDireccion=DaoDireccion.conseguirID(pais, ciudad, calle, numero);
-			}
-			Integer idAeropuerto=DaoAeropuerto.conseguirID(nombre, anioInauguracion, capacidad, idDireccion);
-			if(idAeropuerto==null) {
-				if(esPublico) {
-					DaoAeropuerto.modificarPorId(idTablaPublico.getSelectionModel().getSelectedItem().getId(), nombre, anioInauguracion, capacidad, idDireccion, imagen);
-				}else {
-					DaoAeropuerto.modificarPorId(idTablaPrivado.getSelectionModel().getSelectedItem().getId(), nombre, anioInauguracion, capacidad, idDireccion, imagen);
-				}
-				idAeropuerto=DaoAeropuerto.conseguirID(nombre, anioInauguracion, capacidad,idDireccion);
-			}
-			System.out.println(imagen);
-			if(esPublico) {
-				DaoAeropuertoPublico.modificarPorID(idAeropuerto, financiacion, numTrabajadores);
-				ListadoAeropuertosController.setListaTodasPublico(DaoAeropuertoPublico.cargarListaAeropuertosPublicos());
-				idTablaPublico.refresh();
-			}else {
-				DaoAeropuertoPrivado.modificarPorID(idAeropuerto, numSocios);
-				ListadoAeropuertosController.setListaTodasPrivado(DaoAeropuertoPrivado.cargarListaAeropuertosPrivados());
-				idTablaPrivado.refresh();
-			}
-			al.setContentText("Aeropuerto modificado correctamente");
-		}else {
-			if(error.equals("")) {
-				al.setAlertType(AlertType.WARNING);
-				error="La persona ya estaba en la lista";
-			}else {
-				al.setAlertType(AlertType.ERROR);
-			}
-			al.setContentText(error);
-		}
-	}
+	 * @param existe the existe
 	 * @param al the al
+	 * @param imagen the imagen
 	 */
 	void modificarAeropuerto(String error, String nombre, String pais, String ciudad, String calle, int numero,
 			int anioInauguracion, int capacidad, boolean esPublico, float financiacion, int numTrabajadores,
@@ -418,6 +387,7 @@ public class AniadirAeropuertoController {
 	 * @param numSocios the num socios
 	 * @param existe the existe
 	 * @param al the al
+	 * @param imagen the imagen
 	 */
 	void aniadirAeropuerto(String error, String nombre, String pais, String ciudad, String calle, int numero,
 			int anioInauguracion, int capacidad, boolean esPublico, float financiacion, int numTrabajadores,
@@ -471,6 +441,7 @@ public class AniadirAeropuertoController {
 	 * @param numTrabajadores the num trabajadores
 	 * @param numSocios the num socios
 	 * @param existe the existe
+	 * @param imagen the imagen
 	 * @return true, if successful
 	 */
 	boolean validarExistencia(String nombre, String pais, String ciudad, String calle, int numero, int anioInauguracion,
@@ -531,6 +502,11 @@ public class AniadirAeropuertoController {
     	}
     }
     
+    /**
+     * Elegir imagen.
+     *
+     * @param event the event
+     */
     @FXML
     void elegirImagen(ActionEvent event) {
         FileChooser fileChooser = new FileChooser();
@@ -672,6 +648,11 @@ public class AniadirAeropuertoController {
 		this.txtAnioInauguracion.setText(txtAnioInauguracion);
 	}
 	
+	/**
+	 * Sets the img seleccionada.
+	 *
+	 * @param imgSeleccionada the new img seleccionada
+	 */
 	public void setImgSeleccionada(ImageView imgSeleccionada) {
 		this.imgSeleccionada = imgSeleccionada;
 	}

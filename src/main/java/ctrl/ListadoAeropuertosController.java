@@ -194,6 +194,7 @@ public class ListadoAeropuertosController {
     /** EL stage. */
     private static Stage s;
     
+    /** El context menu. */
     private  ContextMenu contextMenu;
 
     /**
@@ -503,6 +504,11 @@ public class ListadoAeropuertosController {
         s.showAndWait();
     }
     
+    /**
+     * Mostrar menu contextual.
+     *
+     * @param event the event
+     */
     @FXML
     void mostrarMenuContextual(MouseEvent event) {
     	if(event.getButton()==MouseButton.SECONDARY) {

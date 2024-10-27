@@ -27,7 +27,6 @@ public class DaoAeropuerto {
 	 * @param anioInauguracion the anio inauguracion
 	 * @param capacidad the capacidad
 	 * @param idDireccion the id direccion
-	 * @param imagen the imagen
 	 * @return the integer
 	 */
 	public static Integer conseguirID(String nombre,int anioInauguracion,int capacidad,int idDireccion) {
@@ -133,6 +132,12 @@ public class DaoAeropuerto {
 		return lst;
 	}
 	
+	/**
+	 * Conseguir imagen.
+	 *
+	 * @param id the id
+	 * @return the input stream
+	 */
 	public static InputStream conseguirImagen(int id) {
 		conection=ConexionBBDD.getConnection();
 		String select="SELECT imagen FROM aeropuertos WHERE id=?";
