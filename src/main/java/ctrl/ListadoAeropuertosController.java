@@ -379,7 +379,7 @@ public class ListadoAeropuertosController {
     				controller.setTxtNumTrabajadoresText(modelo.getNumTrabajadores()+"");
     				controller.setTxtPaisText(modelo.getDireccion().getPais());
     				if(modelo.getImagen()!=null) {
-    					controller.setImgSeleccionada(new ImageView(new Image(modelo.getImagen())));
+    					controller.getImgSeleccionada().setImage(new Image(modelo.getImagen()));
     				}
     			}else {
     				ModeloAeropuertoPrivado modelo=idTablaPrivado.getSelectionModel().getSelectedItem();
@@ -392,7 +392,7 @@ public class ListadoAeropuertosController {
     				controller.setTxtNumSociosText(modelo.getNumSocios()+"");
     				controller.setTxtPaisText(modelo.getDireccion().getPais());
     				if(modelo.getImagen()!=null) {
-    					controller.setImgSeleccionada(new ImageView(new Image(modelo.getImagen())));
+    					controller.getImgSeleccionada().setImage(new Image(modelo.getImagen()));
     				}
     			}
     		} catch (IOException e) {

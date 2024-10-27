@@ -650,12 +650,12 @@ public class AniadirAeropuertoController {
 	}
 	
 	/**
-	 * Sets the img seleccionada.
+	 * Gets the img seleccionada.
 	 *
-	 * @param imgSeleccionada the new img seleccionada
+	 * @return the img seleccionada
 	 */
-	public void setImgSeleccionada(ImageView imgSeleccionada) {
-		this.imgSeleccionada = imgSeleccionada;
+	public ImageView getImgSeleccionada() {
+		return imgSeleccionada;
 	}
 
 }
