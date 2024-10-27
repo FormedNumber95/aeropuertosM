@@ -349,6 +349,7 @@ public class AniadirAeropuertoController {
 				}
 				idAeropuerto=DaoAeropuerto.conseguirID(nombre, anioInauguracion, capacidad,idDireccion);
 			}
+			DaoAeropuerto.modificarPorId(idAeropuerto, nombre, anioInauguracion, capacidad,idDireccion, imagen);
 			if(esPublico) {
 				DaoAeropuertoPublico.modificarPorID(idAeropuerto, financiacion, numTrabajadores);
 				ListadoAeropuertosController.setListaTodasPublico(DaoAeropuertoPublico.cargarListaAeropuertosPublicos());
